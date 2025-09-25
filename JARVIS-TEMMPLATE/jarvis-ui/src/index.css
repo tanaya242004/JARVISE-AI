@@ -1,0 +1,251 @@
+:root {
+  --bg: #0a0a0a;
+  --grid: #1b1b1b;
+  --primary: #ff6a00;
+  --accent: #ffb000;
+  --hud-glow: rgba(0, 255, 120, 0.25);
+  --text: #e5e5e5;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(1200px 600px at 50% 100%, #101010 0%, var(--bg) 60%);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Helvetica, Arial, Noto Sans, Apple Color Emoji, Segoe UI Emoji;
+  overflow: hidden;
+}
+
+.app {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.bg-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.bg-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  filter: contrast(110%) saturate(110%);
+}
+
+.canvas-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hud {
+  position: relative;
+  pointer-events: none;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+.hud-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 48px 48px, 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 90%);
+  opacity: .35;
+}
+
+.hud-top {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 16px;
+}
+
+.hud-widget {
+  pointer-events: auto;
+  background: linear-gradient(180deg, rgba(20,20,20,.8), rgba(5,5,5,.8));
+  border: 1px solid rgba(255, 153, 0, .25);
+  box-shadow: 0 0 24px rgba(255, 136, 0, .12) inset, 0 0 24px rgba(0, 255, 120, .06);
+  backdrop-filter: blur(4px);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 8px;
+  min-width: 120px;
+}
+
+.hud-round {
+  width: 88px;
+  height: 88px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.hud-round::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px dashed rgba(255, 166, 0, .45);
+  box-shadow: 0 0 24px rgba(255, 155, 0, .25);
+  animation: spin 12s linear infinite;
+}
+
+.hud-clock-time {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.hud-clock-date {
+  font-size: 12px;
+  opacity: .8;
+}
+
+.hud-bottom-left {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: grid;
+  gap: 12px;
+}
+
+.spectrum {
+  width: 420px;
+  height: 64px;
+  background: rgba(12, 12, 12, .7);
+  border: 1px solid rgba(255, 166, 0, .25);
+  border-radius: 8px;
+  overflow: hidden;
+  display: grid;
+  align-items: end;
+  padding: 6px;
+}
+
+.spectrum-bars {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 6px;
+  gap: 4px;
+  height: 100%;
+}
+
+.bar {
+  width: 6px;
+  background: linear-gradient(var(--primary), rgba(255, 136, 0, .15));
+  border-radius: 2px;
+  height: 20%;
+}
+
+.hud-hex {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.reticle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.rotate-slow { animation: spin 18s linear infinite; }
+.rotate-fast { animation: spin 6s linear infinite; }
+
+.hex-label {
+  color: #1b1b1b;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.glow-panel {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  width: 320px;
+  height: 96px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255, 170, 0, 0.10), rgba(140, 70, 0, 0.08));
+  box-shadow: 0 0 24px rgba(255, 190, 60, 0.35), 0 0 64px rgba(255, 170, 0, 0.25) inset;
+  border: 1px solid rgba(255, 190, 60, 0.5);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg) }
+}
+
+
+
+ .corner-gif {
+   position: absolute;
+   top: 10px;       /* small gap from top */
+   left: 10px;      /* small gap from left */
+   width: 300px;     /* smaller size */
+   height: auto;    /* keep aspect ratio */
+   z-index: 100;    /* keep above other layers */
+   pointer-events: none; /* so it doesn't block clicks */
+   mix-blend-mode: screen; /* try lighten, multiply, overlay too */
+   background: transparent;
+ }
+
+.system-message-top {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ffb000;
+  color: #1b1b1b;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 20px;
+  z-index: 1100;
+  pointer-events: auto;
+  user-select: auto;
+  box-shadow: 0 0 20px 5px #ffb000cc;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.system-message-bottom-right {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffb000;
+  color: #1b1b1b;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 16px;
+  z-index: 900;
+  pointer-events: none;
+  user-select: none;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.system-message-visible {
+  opacity: 1;
+}

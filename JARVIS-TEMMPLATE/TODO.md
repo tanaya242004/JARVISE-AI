@@ -1,0 +1,8 @@
+- [x] Add speech recognition to detect "hello jarvis" and activate mic in App.jsx
+- [x] Add Web Audio API analyser for microphone input
+- [x] Modify AnimatedBars to use analyser data for real-time waveform
+- [x] Remove Wave component and related CSS
+- [x] Test the audio visualizer
+- [x] Add text display when Jarvis gets activated
+- [x] Remove top text and center-align the activation text
+- [x] Add fade-in and fade-out animation to the activation text
